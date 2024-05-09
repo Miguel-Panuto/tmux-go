@@ -18,5 +18,5 @@ build_finder:
 		echo "[]" > files/directories.json; \
 	fi \
 	
-	@go build -o main cmd/finder/main.go
+	@go build -o tmux-go cmd/finder/main.go
 
