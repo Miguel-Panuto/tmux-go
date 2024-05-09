@@ -2,6 +2,7 @@ package usecases_add
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -54,4 +55,5 @@ func (a *AddProjectSourceUsecase) Execute() {
 	}
 
 	a.saveProjectFolder(string(out))
+	fmt.Println("Project added")
 }

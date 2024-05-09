@@ -88,11 +88,11 @@ func newModel(s *string) model {
 	}
 }
 
-func Run() string {
+func Run() *string {
 	var s string
 	if _, err := tea.NewProgram(newModel(&s), tea.WithAltScreen()).Run(); err != nil {
 		fmt.Println("Error running program:", err)
 		os.Exit(1)
 	}
-	return s
+	return &s
 }

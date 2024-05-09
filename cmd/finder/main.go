@@ -21,5 +21,8 @@ func main() {
 
 	project_folder := finder_ui.Run()
 	open_tmux_project_usecase := usecases_finder.NewOpenTmuxProjectUsecase()
-	open_tmux_project_usecase.Execute(project_folder)
+	if project_folder == nil {
+		return
+	}
+	open_tmux_project_usecase.Execute(*project_folder)
 }
