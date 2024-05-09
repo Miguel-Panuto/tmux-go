@@ -3,7 +3,6 @@ package usecases_finder
 import (
 	"os"
 	"os/exec"
-	"strconv"
 	"strings"
 )
 
@@ -11,23 +10,6 @@ type OpenTmuxProjectUsecase struct{}
 
 func NewOpenTmuxProjectUsecase() *OpenTmuxProjectUsecase {
 	return &OpenTmuxProjectUsecase{}
-}
-
-func (o *OpenTmuxProjectUsecase) isTmuxRunning() bool {
-	cmd := exec.Command("pgrep", "tmux")
-
-	out, err := cmd.Output()
-	if err != nil {
-		return false
-	}
-
-	value := strings.TrimSpace(string(out))
-	value = strings.TrimSuffix(value, "\n")
-	num, err := strconv.Atoi(value)
-	if err != nil {
-		return false
-	}
-	return num > 0
 }
 
 func (o *OpenTmuxProjectUsecase) attachProject(s string) {
@@ -71,16 +53,9 @@ func (o *OpenTmuxProjectUsecase) Execute(project_folder string) {
 		return
 	}
 
-	is_tmux_running := o.isTmuxRunning()
-
 	cmd := exec.Command("tmux", "new-session", "-d", "-c", project_folder, "-s", project_name)
 	if err := cmd.Run(); err != nil {
 		panic(err)
-	}
-
-	if !is_tmux_running {
-		o.attachProject(project_name)
-		return
 	}
 
 	o.switchToProject(project_name)
