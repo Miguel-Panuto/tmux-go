@@ -16,7 +16,8 @@ func NewListProjectsUsecase() *ListProjectsUsecase {
 }
 
 func (l *ListProjectsUsecase) getPaths() []string {
-	file, err := os.ReadFile(path.Join("files", "directories.json"))
+	home_dir, _ := os.UserHomeDir()
+	file, err := os.ReadFile(path.Join(home_dir, ".tmux", "files", "directories.json"))
 	if err != nil {
 		panic(err)
 	}
